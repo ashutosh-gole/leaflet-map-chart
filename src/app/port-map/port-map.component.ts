@@ -5,7 +5,7 @@ import * as L from 'leaflet';
   selector: 'app-port-map',
   standalone: false,
   templateUrl: './port-map.component.html',
-  styleUrl: './port-map.component.scss'
+  styleUrls: ['./port-map.component.scss']
 })
 export class PortMapComponent implements OnInit, AfterViewInit {
   private map: L.Map | undefined;
@@ -20,11 +20,10 @@ export class PortMapComponent implements OnInit, AfterViewInit {
 
   private defaultIcon = L.icon({
     iconUrl: 'assets/leaflet/images/marker-icon.png',
-    // shadowUrl: 'assets/leaflet/images/marker-shadow-icon.png',
-    iconSize: [25, 41],
+    iconSize: [18, 18],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
-    shadowSize: [41, 41]
+    shadowSize: [18, 18]
   });
 
   ngOnInit(): void { }
@@ -51,15 +50,14 @@ export class PortMapComponent implements OnInit, AfterViewInit {
     const geoJsonData = 'assets/geojson/countries.geo.json'; // Replace with your GeoJSON file path
 
     fetch(geoJsonData)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         this.geoJsonLayer = L.geoJSON(data, {
           style: {
-            fillColor: 'blue',
-            weight: 2,
-            opacity: 1,
-            color: 'white',
-            fillOpacity: 0.5
+            weight: 0,
+            // opacity: 1,
+            // color: '#3388ff', // Default Leaflet color
+            fillOpacity: 0
           },
           onEachFeature: (feature, layer) => {
             layer.on('click', () => this.onAreaClick(feature, layer));
@@ -69,7 +67,7 @@ export class PortMapComponent implements OnInit, AfterViewInit {
   }
 
   private addPortMarkers(ports: any[]): void {
-    ports.forEach(port => {
+    ports.forEach((port) => {
       const marker = L.marker([port.lat, port.lng], { icon: this.defaultIcon }).bindPopup(`
         <b>${port.name}</b><br>
         Location: [${port.lat.toFixed(2)}, ${port.lng.toFixed(2)}]
@@ -82,27 +80,21 @@ export class PortMapComponent implements OnInit, AfterViewInit {
     if (!this.map || !this.geoJsonLayer) return;
 
     // Reset styles for all regions
-    this.geoJsonLayer.setStyle(() => ({
-      fillColor: 'blue',
-      weight: 2,
-      opacity: 1,
-      color: 'white',
-      fillOpacity: 0.5
-    }));
+    this.geoJsonLayer.resetStyle(); // This will reset the style of all features to their default
 
     // Highlight the clicked region (cast layer to L.Path)
     const polygonLayer = layer as L.Path;
     polygonLayer.setStyle({
-      fillColor: 'red',
+      fillColor: 'orange',
       weight: 2,
       opacity: 1,
       color: 'white',
-      fillOpacity: 0.8
+      fillOpacity: 0.7
     });
 
     // Count ports in the clicked area
     const bounds = (layer as L.Polygon).getBounds();
-    const portCount = this.ports.filter(port =>
+    const portCount = this.ports.filter((port) =>
       bounds.contains([port.lat, port.lng])
     ).length;
 
