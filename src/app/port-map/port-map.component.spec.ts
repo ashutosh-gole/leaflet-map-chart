@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VesselMapComponent } from './vessel-map.component';
+import { PortMapComponent } from './port-map.component';
 
-describe('VesselMapComponent', () => {
-  let component: VesselMapComponent;
-  let fixture: ComponentFixture<VesselMapComponent>;
+describe('PortMapComponent', () => {
+  let component: PortMapComponent;
+  let fixture: ComponentFixture<PortMapComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [VesselMapComponent]
+      declarations: [PortMapComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(VesselMapComponent);
+    fixture = TestBed.createComponent(PortMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
