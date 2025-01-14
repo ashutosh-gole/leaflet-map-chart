@@ -10,6 +10,7 @@ import * as L from 'leaflet';
 export class PortMapComponent implements OnInit, AfterViewInit {
   private map: L.Map | undefined;
   private geoJsonLayer: L.GeoJSON | undefined;
+  private legend: L.Control | undefined;
 
   ports = [
     // China
@@ -138,6 +139,7 @@ export class PortMapComponent implements OnInit, AfterViewInit {
     this.initMap();
     this.loadGeoJson();
     this.addPortMarkers(this.ports);
+    this.addLegend(); // Add legend here
   }
 
   private initMap(): void {
@@ -174,19 +176,19 @@ export class PortMapComponent implements OnInit, AfterViewInit {
         const getColor = (count: number) => {
           return count > 50
             ? '#800026' // Very dark red
-            : count > 40
+            : count > 18
               ? '#BD0026'
-              : count > 30
+              : count > 15
                 ? '#E31A1C'
-                : count > 20
+                : count > 10
                   ? '#FC4E2A'
-                  : count > 15
+                  : count > 8
                     ? '#FD8D3C'
-                    : count > 10
+                    : count > 5
                       ? '#FEB24C'
-                      : count > 5
+                      : count > 3
                         ? '#FED976'
-                        : count > 3
+                        : count > 1
                           ? '#FFEDA0'
                           : count > 0
                             ? '#FFF5EB'
@@ -248,6 +250,80 @@ export class PortMapComponent implements OnInit, AfterViewInit {
       .setLatLng(bounds.getCenter())
       .setContent(`<b>${feature.properties.name}</b><br>Port Count: ${portCount}`)
       .openOn(this.map);
+  }
+
+  private addLegend(): void {
+    if (!this.map) return;
+
+    // Create a custom control class
+    class LegendControl extends L.Control {
+      private div: HTMLElement | undefined;
+
+      constructor() {
+        super({ position: 'bottomright' });
+      }
+
+      override onAdd(map: L.Map): HTMLElement {
+        this.div = L.DomUtil.create('div', 'info legend');
+        const grades = [0, 1, 3, 5, 8, 10, 15, 18, 50];
+        const labels = [];
+
+        if (this.div) {
+          this.div.style.backgroundColor = 'white';
+          this.div.style.padding = '6px 8px';
+          this.div.style.border = '1px solid rgba(0,0,0,0.2)';
+          this.div.style.borderRadius = '4px';
+          this.div.style.lineHeight = '18px';
+          this.div.style.color = '#555';
+
+          // Add legend title
+          labels.push('<strong>Ports per Country</strong><br>');
+
+          // Loop through our density intervals and generate a label with a colored square for each interval
+          for (let i = 0; i < grades.length; i++) {
+            const from = grades[i];
+            const to = grades[i + 1];
+
+            labels.push(
+              '<i style="background:' + this.getColor(from + 1) + '; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7"></i> ' +
+              from + (to ? '&ndash;' + to : '+')
+            );
+          }
+
+          this.div.innerHTML = labels.join('<br>');
+        }
+
+        return this.div!;
+      }
+
+      override onRemove(map: L.Map): void {
+        // Cleanup code here
+      }
+
+      private getColor(count: number): string {
+        return count > 50 ? '#800026'
+          : count > 18 ? '#BD0026'
+            : count > 15 ? '#E31A1C'
+              : count > 10 ? '#FC4E2A'
+                : count > 8 ? '#FD8D3C'
+                  : count > 5 ? '#FEB24C'
+                    : count > 3 ? '#FED976'
+                      : count > 1 ? '#FFEDA0'
+                        : count > 0 ? '#FFF5EB'
+                          : '#FFFFFF';
+      }
+    }
+
+    // Create and add the legend control
+    this.legend = new LegendControl();
+    this.legend.addTo(this.map);
+  }
+
+  // Optional: Clean up legend when component is destroyed
+  ngOnDestroy(): void {
+    if (this.map && this.legend) {
+      this.legend.remove();
+    }
   }
 
 }
