@@ -140,6 +140,7 @@ export class PortMapComponent implements OnInit, AfterViewInit {
     this.loadGeoJson();
     this.addPortMarkers(this.ports);
     this.addLegend(); // Add legend here
+    this.drawRoute(); // Draw the route
   }
 
   private initMap(): void {
@@ -317,6 +318,31 @@ export class PortMapComponent implements OnInit, AfterViewInit {
     // Create and add the legend control
     this.legend = new LegendControl();
     this.legend.addTo(this.map);
+  }
+
+  private drawRoute(): void {
+    // Define the route coordinates
+    const routeCoordinates = [
+      { name: 'Mumbai', lat: 18.9220, lng: 72.8347 },
+      { name: 'Pune', lat: 18.5204, lng: 73.8567 },
+      { name: 'Sambhaji Nagar', lat: 19.8762, lng: 75.3433 },
+      { name: 'Nagpur', lat: 21.1458, lng: 79.0882 },
+    ];
+
+    // Create the polyline (route)
+    const route = L.polyline(routeCoordinates.map((point) => [point.lat, point.lng]), {
+      color: 'blue', // Route color
+      weight: 3, // Line thickness
+      opacity: 0.9, // Line opacity
+    }).addTo(this.map!);
+
+    // Add markers for each point
+    routeCoordinates.forEach((point) => {
+      L.marker([point.lat, point.lng]).bindPopup(`<b>${point.name}</b><br>Location: [${point.lat.toFixed(2)}, ${point.lng.toFixed(2)}]`).addTo(this.map!);
+    });
+
+    // Adjust map bounds to fit the route
+    this.map!.fitBounds(route.getBounds());
   }
 
   // Optional: Clean up legend when component is destroyed
