@@ -133,6 +133,17 @@ export class PortMapComponent implements OnInit, AfterViewInit {
     shadowSize: [18, 18]
   });
 
+  // Define a custom icon for route points
+  private routeIcon = L.icon({
+    iconUrl: 'assets/icons/pin.png', // Path to the custom icon image
+    iconSize: [25, 41], // Adjust size as needed
+    iconAnchor: [12, 41], // Point of the icon which will correspond to marker's location
+    popupAnchor: [1, -34], // Position of the popup relative to the icon
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    shadowSize: [41, 41],
+    shadowAnchor: [12, 41],
+  })
+
   ngOnInit(): void { }
 
   ngAfterViewInit(): void {
@@ -141,6 +152,7 @@ export class PortMapComponent implements OnInit, AfterViewInit {
     this.addPortMarkers(this.ports);
     this.addLegend(); // Add legend here
     this.drawRoute(); // Draw the route
+    this.drawAdditionalRoute(); // Draw the new route
   }
 
   private initMap(): void {
@@ -320,6 +332,7 @@ export class PortMapComponent implements OnInit, AfterViewInit {
     this.legend.addTo(this.map);
   }
 
+  // Draw the route with custom icons for route points
   private drawRoute(): void {
     // Define the route coordinates
     const routeCoordinates = [
@@ -336,13 +349,56 @@ export class PortMapComponent implements OnInit, AfterViewInit {
       opacity: 0.9, // Line opacity
     }).addTo(this.map!);
 
-    // Add markers for each point
+    // Bind a popup to the polyline
+    route.bindPopup(`<b>Route Details:</b><br>Source: ${routeCoordinates[0].name}<br>Destination: ${routeCoordinates[routeCoordinates.length - 1].name}`);
+
+    // Add markers for each point with the custom icon
     routeCoordinates.forEach((point) => {
-      L.marker([point.lat, point.lng]).bindPopup(`<b>${point.name}</b><br>Location: [${point.lat.toFixed(2)}, ${point.lng.toFixed(2)}]`).addTo(this.map!);
+      L.marker([point.lat, point.lng], { icon: this.routeIcon })
+        .bindPopup(`<b>${point.name}</b><br>Location: [${point.lat.toFixed(2)}, ${point.lng.toFixed(2)}]`)
+        .addTo(this.map!);
     });
 
     // Adjust map bounds to fit the route
     this.map!.fitBounds(route.getBounds());
+  }
+
+  private drawAdditionalRoute(): void {
+    // Define the additional route coordinates
+    const additionalRouteCoordinates = [
+      { name: 'Visakhapatnam Port', lat: 17.7041, lng: 83.2977 },
+      { name: 'Jamshedpur', lat: 22.8056, lng: 86.2029 },
+      { name: 'Varanasi', lat: 25.3176, lng: 82.9739 },
+      { name: 'Jhansi', lat: 25.4486, lng: 78.5685 },
+      { name: 'Delhi', lat: 28.7041, lng: 77.1025 },
+    ];
+
+    // Create the polyline (route) for the new line
+    const additionalRoute = L.polyline(
+      additionalRouteCoordinates.map((point) => [point.lat, point.lng]),
+      {
+        color: 'orange', // New line color
+        weight: 3, // Line thickness
+        opacity: 0.9, // Line opacity
+      }
+    ).addTo(this.map!);
+
+    // Bind a popup to the polyline
+    additionalRoute.bindPopup(`<b>Route Details:</b><br>Source: ${additionalRouteCoordinates[0].name}<br>Destination: ${additionalRouteCoordinates[additionalRouteCoordinates.length - 1].name}`);
+
+    // Add markers for each point with the custom icon
+    additionalRouteCoordinates.forEach((point) => {
+      L.marker([point.lat, point.lng], { icon: this.routeIcon })
+        .bindPopup(
+          `<b>${point.name}</b><br>Location: [${point.lat.toFixed(
+            2
+          )}, ${point.lng.toFixed(2)}]`
+        )
+        .addTo(this.map!);
+    });
+
+    // Adjust map bounds to fit both routes
+    this.map!.fitBounds(additionalRoute.getBounds());
   }
 
   // Optional: Clean up legend when component is destroyed
