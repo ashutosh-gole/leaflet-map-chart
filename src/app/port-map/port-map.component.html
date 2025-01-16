@@ -1,4 +1,9 @@
-<div class="search-container">
+<div class="top-container">
     <input type="text" (input)="onSearch($event)" placeholder="Search for a port">
+
+    <div class="map-controls">
+        <button (click)="saveBookmark()">Save View</button>
+        <button (click)="loadBookmark()">Load View</button>
+    </div>
 </div>
 <div id="map" style="width: 100vw; height: 100vh;"></div>

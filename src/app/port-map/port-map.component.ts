@@ -19,6 +19,7 @@ export class PortMapComponent implements OnInit, AfterViewInit {
   ports = PORTS;
   searchSubject: Subject<string> = new Subject();
   selectedPort: any;
+  private savedView: { center: L.LatLng, zoom: number, layers: string[] } | null = null;
 
   private defaultIcon = L.icon({
     iconUrl: 'assets/leaflet/images/marker-icon.png',
@@ -334,6 +335,56 @@ export class PortMapComponent implements OnInit, AfterViewInit {
         port.popup.openOn(this.map);  // Open the port's popup
       }
     }
+  }
+
+  saveBookmark(): void {
+    const center = this.map?.getCenter();
+    const zoom = this.map?.getZoom();
+    const layers: any[] = [];
+    this.map?.eachLayer((layer: any) => {
+      if (layer.options && layer.options.id) {
+        layers.push(layer.options.id);
+      }
+    });
+
+    const bookmark = { center, zoom, layers };
+    localStorage.setItem('savedView', JSON.stringify(bookmark));
+  }
+
+  loadBookmark(): void {
+    const savedView = localStorage.getItem('savedView');
+    if (!savedView) {
+      alert('No saved view to load.');
+      return;
+    }
+
+    const { center, zoom, layers } = JSON.parse(savedView);
+
+    // Smooth animation to the saved center and zoom level
+    this.map?.flyTo(center, zoom, {
+      animate: true,
+      duration: 5, // Animation duration in seconds (adjust as needed)
+      easeLinearity: 0.25, // Controls the ease of the zoom animation
+    });
+
+    this.map?.eachLayer((layer: any) => {
+      if (layer.options && layer.options.id) {
+        this.map?.removeLayer(layer);
+      }
+    });
+
+    layers.forEach((layerId: any) => {
+      const layer = this.getLayerById(layerId); // Implement this method if needed
+      if (layer) {
+        this.map?.addLayer(layer);
+      }
+    });
+  }
+
+  private getLayerById(id: string): L.Layer | null {
+    // Replace this with your layer management logic
+    // For example, you might have a layers registry
+    return null;
   }
 
   // Optional: Clean up legend when component is destroyed

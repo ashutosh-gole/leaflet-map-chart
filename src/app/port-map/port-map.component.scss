@@ -10,6 +10,53 @@
     min-height: 500px;
 }
 
+.top-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Center horizontally */
+    position: absolute;
+    top: 10px;
+    /* Adjust vertical position */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    /* Ensure it's above the map */
+    gap: 15px;
+    /* Space between elements */
+}
+
+.top-container input {
+    width: 300px;
+    /* Adjust width as needed */
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #000;
+    /* Black border */
+    border-radius: 12px;
+}
+
+.map-controls {
+    display: flex;
+    gap: 10px;
+    /* Space between buttons */
+}
+
+.map-controls button {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 12px;
+    background-color: #c0b6b6;
+    transition: background-color 0.3s ease;
+}
+
+.map-controls button:hover {
+    background-color: #e0e0e0;
+}
+
 /* Legend Styles */
 .legend {
     background-color: white;
@@ -20,30 +67,4 @@
 .legend i {
     display: inline-block;
     border: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.search-container {
-    display: flex;
-    justify-content: center;
-    /* Center horizontally */
-    position: absolute;
-    top: 10px;
-    /* Adjust as needed */
-    left: 50%;
-    transform: translateX(-50%);
-    /* Center the container */
-    width: 100%;
-    z-index: 1000;
-    /* Ensure it's above the map */
-    padding: 12px;
-}
-
-.search-container input {
-    width: 300px;
-    /* Adjust width as needed */
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    border: 2px solid black;
 }
