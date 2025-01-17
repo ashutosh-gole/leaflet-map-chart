@@ -8,8 +8,8 @@
 
     <div class="carousel-container" *ngIf="data.images">
         <owl-carousel-o [options]="carouselOptions">
-            <ng-container *ngFor="let image of data.images">
-                <ng-template carouselSlide>
+            <ng-container *ngFor="let image of data.images; let i=index">
+                <ng-template carouselSlide [id]="image">
                     <img [src]="image" alt="Port Image" class="carousel-image" />
                 </ng-template>
             </ng-container>

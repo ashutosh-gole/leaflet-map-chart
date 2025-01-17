@@ -33,21 +33,11 @@ export class PortDetailsComponent {
     },
     nav: true
   };
-  portDetails: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    // Example of available data properties
-    this.portDetails = {
-      name: this.data.name,
-      images: this.data.images || [], // Array of image URLs
-      description: this.data.description || 'No description available',
-      type: this.data.type || 'Unknown',
-      capacity: this.data.capacity || 'N/A',
-      location: { lat: this.data.lat, lng: this.data.lng },
-      additionalDetails: this.data.additionalDetails || [],
-    };
+    console.log('Port details:', this.data);
   }
 
 }

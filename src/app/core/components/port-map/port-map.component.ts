@@ -134,10 +134,7 @@ export class PortMapComponent implements OnInit, AfterViewInit {
 
   private addPortMarkers(ports: any[]): void {
     ports.forEach((port) => {
-      const marker = L.marker([port.lat, port.lng], { icon: this.defaultIcon }).bindPopup(`
-        <b>${port.name}</b><br>
-        Location: [${port.lat.toFixed(2)}, ${port.lng.toFixed(2)}]
-      `);
+      const marker = L.marker([port.lat, port.lng], { icon: this.defaultIcon });
 
       marker.on('click', () => {
         this.dialog.open(PortDetailsComponent, {
@@ -252,7 +249,7 @@ export class PortMapComponent implements OnInit, AfterViewInit {
   private drawRoute(): void {
     // Define the route coordinates
     const routeCoordinates = [
-      { name: 'Mumbai', lat: 18.9220, lng: 72.8347 },
+      { name: 'Jawaharlal Nehru Port', lat: 18.9490, lng: 72.9525 },
       { name: 'Pune', lat: 18.5204, lng: 73.8567 },
       { name: 'Sambhaji Nagar', lat: 19.8762, lng: 75.3433 },
       { name: 'Nagpur', lat: 21.1458, lng: 79.0882 },

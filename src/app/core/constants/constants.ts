@@ -12,7 +12,25 @@ export const PORTS = [
     { name: 'Port of Lianyungang', lat: 34.7197, lng: 119.4427 },
 
     // USA
-    { name: 'Port of Los Angeles', lat: 33.7288, lng: -118.2620 },
+    {
+        name: 'Port of Los Angeles',
+        description: 'The Port of Los Angeles, also known as America’s Port, is located in San Pedro Bay and serves as a critical hub for international trade. It is the busiest container port in the Western Hemisphere, supporting a large volume of cargo operations.',
+        type: 'Seaport',
+        country: 'USA',
+        lat: 33.7288,
+        lng: -118.2620,
+        status: 'Operational',
+        otherInfo: 'Handles extensive container and bulk cargo, contributing significantly to the US economy.',
+        images: [
+            'assets/port/port1.jpg',
+            'assets/port/port2.jpg',
+            'assets/port/port3.jpg',
+            'assets/port/port4.jpg',
+            'assets/port/port5.jpg',
+            'assets/port/port6.jpg',
+            'assets/port/port7.jpg'
+        ],
+    },
     { name: 'Port of New York/New Jersey', lat: 40.6924, lng: -74.0445 },
     { name: 'Port of Long Beach', lat: 33.7544, lng: -118.2161 },
     { name: 'Port of Houston', lat: 29.7604, lng: -95.2573 },
@@ -25,7 +43,25 @@ export const PORTS = [
 
     // India
     { name: 'Jawaharlal Nehru Port', lat: 18.9490, lng: 72.9525 },
-    { name: 'Mumbai Port', lat: 18.9220, lng: 72.8347 },
+    {
+        name: 'Mumbai Port',
+        description: 'Mumbai Port (also known as the Bombay Port) is a port which lies midway on the west coast of India, on the natural deep-water Mumbai harbour in Maharashtra. The harbour spread over 400 square kilometres (150 sq mi) is protected by the mainland of Konkan to its east and north and by the island city of Mumbai to its west.[1] The harbour opens to the south to the Arabian Sea.The port is administered by the Mumbai Port Trust (MbPT, formerly the Bombay Port Trust (BPT)), an autonomous corporation wholly owned by the Government of India.[5] The port is primarily used for bulk cargo, while most container traffic is directed to Nhava Sheva port across the harbour.',
+        type: 'Seaport',
+        country: 'India',
+        lat: 18.922,
+        lng: 72.834,
+        status: 'Operational',
+        otherInfo: 'Handles bulk cargo and containers.',
+        images: [
+            'assets/port/port1.jpg',
+            'assets/port/port2.jpg',
+            'assets/port/port3.jpg',
+            'assets/port/port4.jpg',
+            'assets/port/port5.jpg',
+            'assets/port/port6.jpg',
+            'assets/port/port7.jpg'
+        ],
+    },
     { name: 'Chennai Port', lat: 13.1000, lng: 80.2944 },
     { name: 'Visakhapatnam Port', lat: 17.6868, lng: 83.2185 },
     { name: 'Paradip Port', lat: 20.2630, lng: 86.6706 },
