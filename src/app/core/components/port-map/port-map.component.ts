@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
-import { PORTS } from '../core/constants/constants';
-import { MapService } from '../core/services/map/map.service';
+import { PORTS } from '../../constants/constants';
+import { MapService } from '../../services/map/map.service';
 import { debounceTime, Subject, switchMap } from 'rxjs';
 
 @Component({
