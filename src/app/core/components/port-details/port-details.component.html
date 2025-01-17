@@ -1,32 +1,30 @@
 <div class="port-details-dialog">
-    <span>{{ portDetails.name }}</span>
+    <div class="dialog-header">
+        <h2>{{ data.name }}</h2>
+        <button mat-button mat-dialog-close class="close-button">X</button>
+    </div>
 
-    <div class="dialog-content">
-        <!-- Image Carousel -->
-        <div class="carousel-container">
-            <!-- <mat-carousel>
-                <mat-carousel-slide *ngFor="let image of portDetails.images">
+    <mat-divider></mat-divider>
+
+    <div class="carousel-container" *ngIf="data.images">
+        <owl-carousel-o [options]="carouselOptions">
+            <ng-container *ngFor="let image of data.images">
+                <ng-template carouselSlide>
                     <img [src]="image" alt="Port Image" class="carousel-image" />
-                </mat-carousel-slide>
-            </mat-carousel> -->
-        </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+    </div>
 
-        <!-- Description and Details -->
-        <div class="port-description">
-            <h3>Description</h3>
-            <p>{{ portDetails.description }}</p>
-        </div>
+    <mat-divider></mat-divider>
 
-        <div class="port-details">
-            <h3>Details</h3>
-            <p><strong>Type:</strong> {{ portDetails.type }}</p>
-            <p><strong>Capacity:</strong> {{ portDetails.capacity }}</p>
-            <p><strong>Location:</strong> [{{ portDetails.location.lat }}, {{ portDetails.location.lng }}]</p>
-            <ul>
-                <li *ngFor="let detail of portDetails.additionalDetails">
-                    {{ detail }}
-                </li>
-            </ul>
-        </div>
+    <div class="port-details">
+        <h3>Details</h3>
+        <p><strong>Description:</strong> {{ data.description }}</p>
+        <p><strong>Type:</strong> {{ data.type }}</p>
+        <p><strong>Country:</strong> {{ data.country }}</p>
+        <p><strong>Coordinates:</strong> {{ data.lat }}, {{ data.lng }}</p>
+        <p><strong>Operational Status:</strong> {{ data.status }}</p>
+        <p><strong>Other Info:</strong> {{ data.otherInfo }}</p>
     </div>
 </div>

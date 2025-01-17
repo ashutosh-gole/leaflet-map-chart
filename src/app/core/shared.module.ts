@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { PortDetailsComponent } from './components/port-details/port-details.component';
 import { PortMapComponent } from './components/port-map/port-map.component';
 import { MaterialModule } from './material/material.module';
-import { PortDetailsComponent } from './components/port-details/port-details.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { PortDetailsComponent } from './components/port-details/port-details.com
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    CarouselModule
   ],
   exports: [
     FormsModule,
