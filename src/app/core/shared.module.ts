@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PortMapComponent } from './components/port-map/port-map.component';
 import { MaterialModule } from './material/material.module';
+import { PortDetailsComponent } from './components/port-details/port-details.component';
 
 @NgModule({
   declarations: [
-    PortMapComponent
+    PortMapComponent,
+    PortDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { MaterialModule } from './material/material.module';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    PortMapComponent
+    PortMapComponent,
+    PortDetailsComponent
   ]
 })
 export class SharedModule { }

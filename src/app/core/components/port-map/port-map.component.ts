@@ -3,6 +3,8 @@ import * as L from 'leaflet';
 import { PORTS } from '../../constants/constants';
 import { MapService } from '../../services/map/map.service';
 import { debounceTime, Subject, switchMap } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { PortDetailsComponent } from '../port-details/port-details.component';
 
 @Component({
   selector: 'app-port-map',
@@ -41,7 +43,8 @@ export class PortMapComponent implements OnInit, AfterViewInit {
   })
 
   constructor(
-    private mapService: MapService
+    private mapService: MapService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -135,6 +138,17 @@ export class PortMapComponent implements OnInit, AfterViewInit {
         <b>${port.name}</b><br>
         Location: [${port.lat.toFixed(2)}, ${port.lng.toFixed(2)}]
       `);
+
+      marker.on('click', () => {
+        this.dialog.open(PortDetailsComponent, {
+          width: '30vw',
+          height: '100vh',
+          position: { top: '0', right: '0' },
+          panelClass: 'port-details-dialog',
+          data: port,
+        });
+      });
+
       marker.addTo(this.map!);
     });
   }

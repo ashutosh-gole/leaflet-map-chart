@@ -1,0 +1,32 @@
+<div class="port-details-dialog">
+    <span>{{ portDetails.name }}</span>
+
+    <div class="dialog-content">
+        <!-- Image Carousel -->
+        <div class="carousel-container">
+            <!-- <mat-carousel>
+                <mat-carousel-slide *ngFor="let image of portDetails.images">
+                    <img [src]="image" alt="Port Image" class="carousel-image" />
+                </mat-carousel-slide>
+            </mat-carousel> -->
+        </div>
+
+        <!-- Description and Details -->
+        <div class="port-description">
+            <h3>Description</h3>
+            <p>{{ portDetails.description }}</p>
+        </div>
+
+        <div class="port-details">
+            <h3>Details</h3>
+            <p><strong>Type:</strong> {{ portDetails.type }}</p>
+            <p><strong>Capacity:</strong> {{ portDetails.capacity }}</p>
+            <p><strong>Location:</strong> [{{ portDetails.location.lat }}, {{ portDetails.location.lng }}]</p>
+            <ul>
+                <li *ngFor="let detail of portDetails.additionalDetails">
+                    {{ detail }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
