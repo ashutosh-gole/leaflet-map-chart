@@ -8,9 +8,9 @@
 
     <div class="carousel-container" *ngIf="data.images">
         <owl-carousel-o [options]="carouselOptions">
-            <ng-container *ngFor="let image of data.images; let i=index">
-                <ng-template carouselSlide [id]="image">
-                    <img [src]="image" alt="Port Image" class="carousel-image" />
+            <ng-container *ngFor="let image of data.images; trackBy: trackByFunction">
+                <ng-template carouselSlide [id]="image?.id">
+                    <img [src]="image?.url" alt="Port Image" class="carousel-image" />
                 </ng-template>
             </ng-container>
         </owl-carousel-o>

@@ -22,13 +22,13 @@ export const PORTS = [
         status: 'Operational',
         otherInfo: 'Handles extensive container and bulk cargo, contributing significantly to the US economy.',
         images: [
-            'assets/port/port1.jpg',
-            'assets/port/port2.jpg',
-            'assets/port/port3.jpg',
-            'assets/port/port4.jpg',
-            'assets/port/port5.jpg',
-            'assets/port/port6.jpg',
-            'assets/port/port7.jpg'
+            { id: "1", url: 'assets/port/port1.jpg' },
+            { id: "2", url: 'assets/port/port2.jpg' },
+            { id: "3", url: 'assets/port/port3.jpg' },
+            { id: "4", url: 'assets/port/port4.jpg' },
+            { id: "5", url: 'assets/port/port5.jpg' },
+            { id: "6", url: 'assets/port/port6.jpg' },
+            { id: "7", url: 'assets/port/port7.jpg' }
         ],
     },
     { name: 'Port of New York/New Jersey', lat: 40.6924, lng: -74.0445 },
@@ -53,13 +53,13 @@ export const PORTS = [
         status: 'Operational',
         otherInfo: 'Handles bulk cargo and containers.',
         images: [
-            'assets/port/port1.jpg',
-            'assets/port/port2.jpg',
-            'assets/port/port3.jpg',
-            'assets/port/port4.jpg',
-            'assets/port/port5.jpg',
-            'assets/port/port6.jpg',
-            'assets/port/port7.jpg'
+            { id: "1", url: 'assets/port/port1.jpg' },
+            { id: "2", url: 'assets/port/port2.jpg' },
+            { id: "3", url: 'assets/port/port3.jpg' },
+            { id: "4", url: 'assets/port/port4.jpg' },
+            { id: "5", url: 'assets/port/port5.jpg' },
+            { id: "6", url: 'assets/port/port6.jpg' },
+            { id: "7", url: 'assets/port/port7.jpg' }
         ],
     },
     { name: 'Chennai Port', lat: 13.1000, lng: 80.2944 },

@@ -10,12 +10,13 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 })
 export class PortDetailsComponent {
   carouselOptions: OwlOptions = {
-    loop: true,
-    mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
-    dots: false,
+    loop: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
     navSpeed: 700,
+    nav: false,
     navText: ['', ''],
     responsive: {
       0: {
@@ -31,13 +32,15 @@ export class PortDetailsComponent {
         items: 4
       }
     },
-    nav: true
+    margin: 10,
   };
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-    console.log('Port details:', this.data);
+  ) { }
+
+  trackByFunction(index: number, item: any): any {
+    return item.id || index; // Use a unique identifier or fallback to index
   }
 
 }

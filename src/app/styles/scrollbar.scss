@@ -1,0 +1,39 @@
+//default scrollbar
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border: 0px none #ffffff;
+  border-radius: 0px;
+  &:hover {
+    background: #cccccc;
+  }
+  &:active {
+    background: #888888;
+  }
+}
+
+::-webkit-scrollbar-track {
+  background: unset;
+  border: 0px none #ffffff;
+  border-radius: 0px;
+  &:hover {
+    background: #666666;
+  }
+  &:active {
+    background: #333333;
+  }
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

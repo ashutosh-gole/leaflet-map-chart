@@ -30,7 +30,7 @@
 
         .carousel-image {
             width: 100%;
-            height: auto;
+            height: 200px !important;
             border-radius: 8px;
             object-fit: cover; // Ensures images are displayed properly
         }
