@@ -23,6 +23,66 @@
         color: #555;
     }
 
+    .overview-tab {
+        padding: 20px;
+
+        /* Gallery container */
+        .media-gallery {
+            margin-top: 20px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            /* Responsive grid */
+            gap: 16px;
+            /* Spacing between items */
+        }
+
+        /* Individual media item styling */
+        .media-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .media-item:hover {
+            transform: scale(1.05);
+            /* Hover effect */
+        }
+
+        /* Styling for images */
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ensures the image covers the space without distortion */
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-image:hover {
+            opacity: 0.8;
+            /* Slight opacity change on hover */
+        }
+
+        /* Styling for videos */
+        .gallery-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ensures the video covers the space */
+            border-radius: 8px;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-video:hover {
+            opacity: 0.8;
+            /* Slight opacity change on hover */
+        }
+    }
+
     .traffic-chart-container {
         padding: 32px;
         display: flex;

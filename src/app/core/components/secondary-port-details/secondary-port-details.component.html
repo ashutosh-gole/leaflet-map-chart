@@ -5,11 +5,20 @@
             <div class="overview-tab">
                 <h2>{{ data.name }}</h2>
                 <p><strong>Summary:</strong> {{ data.summary }}</p>
-                <div class="current-weather">
-                    <h3>Current Weather</h3>
-                    <img [src]="data.weather.icon" alt="Weather Icon" />
-                    <p><strong>Condition:</strong> {{ data.weather.condition }}</p>
-                    <p><strong>Temperature:</strong> {{ data.weather.temperature }}°C</p>
+
+                <!-- Port and Vessels Gallery -->
+                <div class="media-gallery">
+                    <h3>Port and Vessels</h3>
+                    <div class="gallery">
+                        <div *ngFor="let media of data.media" class="media-item">
+                            <ng-container *ngIf="media.type === 'image'">
+                                <img [src]="media.url" [alt]="media.caption" class="gallery-image" />
+                            </ng-container>
+                            <ng-container *ngIf="media.type === 'video'">
+                                <video [src]="media.url" controls class="gallery-video"></video>
+                            </ng-container>
+                        </div>
+                    </div>
                 </div>
             </div>
         </mat-tab>

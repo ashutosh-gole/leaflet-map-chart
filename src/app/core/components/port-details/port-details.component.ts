@@ -55,6 +55,17 @@ export class PortDetailsComponent {
       data: {
         name: this.data.name,
         summary: 'A major port known for its container handling efficiency.',
+        media: [
+          { type: 'image', url: 'assets/port/port1.jpg', caption: 'Port Image 1' },
+          { type: 'image', url: 'assets/port/port2.jpg', caption: 'Port Image 2' },
+          { type: 'image', url: 'assets/port/port3.jpg', caption: 'Port Image 3' },
+          { type: 'video', url: 'assets/port/video1.mp4', caption: 'Vessel Video 1' },
+          { type: 'image', url: 'assets/port/port4.jpg', caption: 'Port Image 4' },
+          { type: 'video', url: 'assets/port/video2.mp4', caption: 'Vessel Video 2' },
+          { type: 'image', url: 'assets/port/port5.jpg', caption: 'Port Image 5' },
+          { type: 'image', url: 'assets/port/port6.jpg', caption: 'Port Image 6' },
+          { type: 'video', url: 'assets/port/video3.mp4', caption: 'Vessel Video 3' }
+        ],
         weather: {
           icon: 'assets/weather/sunny.png',
           condition: 'Sunny',
