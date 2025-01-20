@@ -2,54 +2,101 @@
     padding: 16px;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    max-height: 100vh;
 
     mat-tab-group {
         margin-top: 16px;
 
         mat-tab {
             padding: 16px;
+        }
+    }
 
-            h2,
-            h3 {
-                color: #333;
+    h2,
+    h3 {
+        color: #333;
+    }
+
+    p {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .chart-container {
+        margin: 20px 0;
+
+        canvas {
+            width: 100%;
+            height: 300px;
+        }
+    }
+
+    .current-weather {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        img {
+            width: 100px; // Adjusted for smaller size
+            height: 100px;
+        }
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .weather-tab {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .header {
+            text-align: center;
+
+            .port-name {
+                font-size: 32px;
+                font-weight: 500;
+                padding: 12px;
+            }
+        }
+
+        .forecast-day {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            .day {
+                min-width: 72px;
             }
 
-            p {
-                font-size: 1rem;
-                color: #555;
+            img {
+                width: 50px;
+                height: 50px;
             }
 
-            .chart-container {
-                margin: 20px 0;
-
-                canvas {
-                    width: 100%;
-                    height: 300px;
-                }
+            .condition {
+                min-width: 72px;
+                margin: 0px 30px;
             }
 
-            .current-weather {
+            .temperature-range {
                 display: flex;
                 align-items: center;
-                gap: 16px;
-
-                img {
-                    width: 50px;
-                    height: 50px;
-                }
-
-                p {
-                    margin: 0;
-                }
-            }
-
-            .weather-tab {
-                display: flex;
-                flex-direction: column;
                 gap: 10px;
 
-                p {
-                    margin: 0;
+                .min-temp,
+                .max-temp {
+                    display: flex;
+                    align-items: center;
+                    font-size: 14px;
+                    gap: 5px;
+
+                    .icon {
+                        font-size: 16px;
+                        color: #007bff;
+                    }
                 }
             }
         }

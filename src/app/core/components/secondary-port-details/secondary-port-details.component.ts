@@ -5,9 +5,8 @@ import Chart from 'chart.js/auto';
 @Component({
   selector: 'app-secondary-port-details',
   standalone: false,
-
   templateUrl: './secondary-port-details.component.html',
-  styleUrl: './secondary-port-details.component.scss'
+  styleUrls: ['./secondary-port-details.component.scss'],
 })
 export class SecondaryPortDetailsComponent implements AfterViewInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
@@ -27,10 +26,10 @@ export class SecondaryPortDetailsComponent implements AfterViewInit {
             {
               label: 'Traffic Volume',
               data: this.data.trafficStats.data,
-              backgroundColor: '#007bff'
-            }
-          ]
-        }
+              backgroundColor: '#007bff',
+            },
+          ],
+        },
       });
     }
   }
@@ -44,10 +43,10 @@ export class SecondaryPortDetailsComponent implements AfterViewInit {
           datasets: [
             {
               data: this.data.vesselTypes.data,
-              backgroundColor: ['#007bff', '#28a745', '#dc3545', '#ffc107']
-            }
-          ]
-        }
+              backgroundColor: ['#007bff', '#28a745', '#dc3545', '#ffc107'],
+            },
+          ],
+        },
       });
     }
   }

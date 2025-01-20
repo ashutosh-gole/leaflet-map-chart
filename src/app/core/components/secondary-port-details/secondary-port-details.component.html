@@ -33,10 +33,29 @@
         <!-- Weather Info Tab -->
         <mat-tab label="Weather Info">
             <div class="weather-tab">
-                <h3>Weather Forecast</h3>
-                <p>Day 1: {{ data.weather.forecast[0].day }} - {{ data.weather.forecast[0].condition }}</p>
-                <p>Day 2: {{ data.weather.forecast[1].day }} - {{ data.weather.forecast[1].condition }}</p>
-                <!-- Add more days as needed -->
+                <div class="header">
+                    <div class="port-name">{{ data.name }}</div>
+                    <div>{{ data.weather.temperature }}<sup>o</sup> | {{ data.weather.condition }}</div>
+                </div>
+
+                <h3>15-Day Weather Forecast</h3>
+                <ng-container *ngFor="let day of data.weather.forecast">
+                    <div class="forecast-day">
+                        <div class="day"><strong>{{ day.day }}</strong></div>
+                        <img [src]="'assets/weather/' + day.condition.toLowerCase() + '.png'" alt="Weather Icon" />
+                        <div class="condition"><i>{{ day.condition }}</i></div>
+                        <div class="temperature-range">
+                            <span class="min-temp">
+                                <mat-icon class="icon" aria-hidden="true">arrow_downward</mat-icon>
+                                {{ day.min }}°C
+                            </span>
+                            <span class="max-temp">
+                                <mat-icon class="icon" aria-hidden="true">arrow_upward</mat-icon>
+                                {{ day.max }}°C
+                            </span>
+                        </div>
+                    </div>
+                </ng-container>
             </div>
         </mat-tab>
     </mat-tab-group>
