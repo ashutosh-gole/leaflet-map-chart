@@ -45,9 +45,7 @@ export class PortMapComponent implements OnInit, AfterViewInit {
   constructor(
     private mapService: MapService,
     private dialog: MatDialog
-  ) {
-    console.log();
-   }
+  ) { }
 
   ngOnInit(): void {
     this.setupSearch();
