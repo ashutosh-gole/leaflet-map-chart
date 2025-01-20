@@ -1,4 +1,15 @@
 .port-details-dialog .mat-mdc-dialog-surface {
+    min-width: 30vw !important;
+    width: 30vw !important;
+    padding: 0;
+    background-color: #fff;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.secondary-port-details-dialog .mat-mdc-dialog-surface {
+    min-width: 50vw !important;
+    width: 50vw !important;
     padding: 0;
     background-color: #fff;
     border-radius: 0;

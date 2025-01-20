@@ -5,11 +5,13 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { PortDetailsComponent } from './components/port-details/port-details.component';
 import { PortMapComponent } from './components/port-map/port-map.component';
 import { MaterialModule } from './material/material.module';
+import { SecondaryPortDetailsComponent } from './components/secondary-port-details/secondary-port-details.component';
 
 @NgModule({
   declarations: [
     PortMapComponent,
-    PortDetailsComponent
+    PortDetailsComponent,
+    SecondaryPortDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { MaterialModule } from './material/material.module';
     ReactiveFormsModule,
     MaterialModule,
     PortMapComponent,
-    PortDetailsComponent
+    PortDetailsComponent,
+    SecondaryPortDetailsComponent
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,43 @@
+<div class="secondary-port-details-dialog">
+    <mat-tab-group>
+        <!-- Overview Tab -->
+        <mat-tab label="Overview">
+            <div class="overview-tab">
+                <h2>{{ data.name }}</h2>
+                <p><strong>Summary:</strong> {{ data.summary }}</p>
+                <div class="current-weather">
+                    <h3>Current Weather</h3>
+                    <img [src]="data.weather.icon" alt="Weather Icon" />
+                    <p><strong>Condition:</strong> {{ data.weather.condition }}</p>
+                    <p><strong>Temperature:</strong> {{ data.weather.temperature }}°C</p>
+                </div>
+            </div>
+        </mat-tab>
+
+        <!-- Traffic Statistics Tab -->
+        <mat-tab label="Traffic Statistics">
+            <div class="chart-container">
+                <h3>Traffic Statistics</h3>
+                <canvas id="trafficChart"></canvas>
+            </div>
+        </mat-tab>
+
+        <!-- Vessel Details Tab -->
+        <mat-tab label="Vessel Details">
+            <div class="chart-container">
+                <h3>Vessel Types</h3>
+                <canvas id="vesselChart"></canvas>
+            </div>
+        </mat-tab>
+
+        <!-- Weather Info Tab -->
+        <mat-tab label="Weather Info">
+            <div class="weather-tab">
+                <h3>Weather Forecast</h3>
+                <p>Day 1: {{ data.weather.forecast[0].day }} - {{ data.weather.forecast[0].condition }}</p>
+                <p>Day 2: {{ data.weather.forecast[1].day }} - {{ data.weather.forecast[1].condition }}</p>
+                <!-- Add more days as needed -->
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
