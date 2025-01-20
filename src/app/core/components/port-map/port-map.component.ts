@@ -5,7 +5,7 @@ import { MapService } from '../../services/map/map.service';
 import { debounceTime, Subject, switchMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { PortDetailsComponent } from '../port-details/port-details.component';
-
+ 
 @Component({
   selector: 'app-port-map',
   standalone: false,
