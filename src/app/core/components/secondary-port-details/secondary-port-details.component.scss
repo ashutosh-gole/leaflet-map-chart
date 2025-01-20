@@ -23,12 +23,27 @@
         color: #555;
     }
 
-    .chart-container {
-        margin: 20px 0;
+    .traffic-chart-container {
+        padding: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         canvas {
-            width: 100%;
-            height: 300px;
+            width: 90% !important;
+            height: 400px !important;
+        }
+    }
+
+    .vessel-chart-container {
+        padding: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        canvas {
+            width: 60% !important;
+            height: 400px !important;
         }
     }
 
@@ -62,40 +77,44 @@
             }
         }
 
-        .forecast-day {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+        .forecast-details {
+            margin: 0px 32px;
 
-            .day {
-                min-width: 72px;
-            }
-
-            img {
-                width: 50px;
-                height: 50px;
-            }
-
-            .condition {
-                min-width: 72px;
-                margin: 0px 30px;
-            }
-
-            .temperature-range {
+            .forecast-day {
                 display: flex;
                 align-items: center;
-                gap: 10px;
+                gap: 80px;
 
-                .min-temp,
-                .max-temp {
+                .day {
+                    min-width: 72px;
+                }
+
+                img {
+                    width: 50px;
+                    height: 50px;
+                }
+
+                .condition {
+                    min-width: 72px;
+                    margin: 0px 0px 0px 30px;
+                }
+
+                .temperature-range {
                     display: flex;
                     align-items: center;
-                    font-size: 14px;
-                    gap: 5px;
+                    gap: 20px;
 
-                    .icon {
-                        font-size: 16px;
-                        color: #007bff;
+                    .min-temp,
+                    .max-temp {
+                        display: flex;
+                        align-items: center;
+                        font-size: 14px;
+                        gap: 5px;
+
+                        .icon {
+                            font-size: 16px;
+                            color: #007bff;
+                        }
                     }
                 }
             }

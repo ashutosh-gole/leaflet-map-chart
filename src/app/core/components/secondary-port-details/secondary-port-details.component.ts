@@ -8,17 +8,26 @@ import Chart from 'chart.js/auto';
   templateUrl: './secondary-port-details.component.html',
   styleUrls: ['./secondary-port-details.component.scss'],
 })
-export class SecondaryPortDetailsComponent implements AfterViewInit {
+export class SecondaryPortDetailsComponent {
+  trafficChartInitialized = false;
+  vesselChartInitialized = false;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  ngAfterViewInit(): void {
-    this.initializeTrafficChart();
-    this.initializeVesselChart();
+  onTabChange(event: any): void {
+    if (event.index === 1 && !this.trafficChartInitialized) {
+      this.initializeTrafficChart();
+      this.trafficChartInitialized = true;
+    } else if (event.index === 2 && !this.vesselChartInitialized) {
+      this.initializeVesselChart();
+      this.vesselChartInitialized = true;
+    }
   }
 
   initializeTrafficChart(): void {
     if (this.data.trafficStats) {
-      new Chart('trafficChart', {
+      const ctx = document.getElementById('trafficChart') as HTMLCanvasElement;
+      new Chart(ctx, {
         type: 'bar',
         data: {
           labels: this.data.trafficStats.labels,
@@ -30,13 +39,57 @@ export class SecondaryPortDetailsComponent implements AfterViewInit {
             },
           ],
         },
+        options: {
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top',
+              labels: {
+                font: {
+                  size: 14,
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Time Period',
+                font: {
+                  size: 16,
+                },
+              },
+              ticks: {
+                font: {
+                  size: 12,
+                },
+              },
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Traffic Volume (in thousands)',
+                font: {
+                  size: 16,
+                },
+              },
+              ticks: {
+                font: {
+                  size: 12,
+                },
+              },
+            },
+          },
+        },
       });
     }
   }
 
   initializeVesselChart(): void {
     if (this.data.vesselTypes) {
-      new Chart('vesselChart', {
+      const ctx = document.getElementById('vesselChart') as HTMLCanvasElement;
+      new Chart(ctx, {
         type: 'pie',
         data: {
           labels: this.data.vesselTypes.labels,
@@ -46,6 +99,19 @@ export class SecondaryPortDetailsComponent implements AfterViewInit {
               backgroundColor: ['#007bff', '#28a745', '#dc3545', '#ffc107'],
             },
           ],
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top',
+              labels: {
+                font: {
+                  size: 14,
+                },
+              },
+            },
+          },
         },
       });
     }

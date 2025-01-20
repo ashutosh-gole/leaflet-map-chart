@@ -60,26 +60,26 @@ export class PortDetailsComponent {
           condition: 'Sunny',
           temperature: 30,
           forecast: [
-            { day: 'Today', condition: 'Sunny', min: 13, max: 30 },
-            { day: 'Wed', condition: 'Rainy', min: 12, max: 30 },
-            { day: 'Thu', condition: 'Sunny', min: 15, max: 28 },
-            { day: 'Fri', condition: 'Sunny', min: 14, max: 30 },
-            { day: 'Sat', condition: 'Cloudy', min: 13, max: 27 },
-            { day: 'Sun', condition: 'Rainy', min: 12, max: 25 },
-            { day: 'Mon', condition: 'Sunny', min: 19, max: 30 },
-            { day: 'Tue', condition: 'Rainy', min: 18, max: 29 },
-            { day: 'Wed', condition: 'Cloudy', min: 15, max: 22 },
-            { day: 'Thu', condition: 'Rainy', min: 13, max: 30 },
-            { day: 'Fri', condition: 'Rainy', min: 22, max: 32 },
-            { day: 'Sat', condition: 'Rainy', min: 13, max: 30 },
-            { day: 'Sun', condition: 'Sunny', min: 18, max: 36 },
-            { day: 'Mon', condition: 'Rainy', min: 19, max: 30 },
-            { day: 'Tue', condition: 'Cloudy', min: 18, max: 30 }
+            { date: '21-01-2025', day: 'Today', condition: 'Sunny', min: 13, max: 30 },
+            { date: '22-01-2025', day: 'Wed', condition: 'Rainy', min: 12, max: 30 },
+            { date: '23-01-2025', day: 'Thu', condition: 'Sunny', min: 15, max: 28 },
+            { date: '24-01-2025', day: 'Fri', condition: 'Sunny', min: 14, max: 30 },
+            { date: '25-01-2025', day: 'Sat', condition: 'Cloudy', min: 13, max: 27 },
+            { date: '26-01-2025', day: 'Sun', condition: 'Rainy', min: 12, max: 25 },
+            { date: '27-01-2025', day: 'Mon', condition: 'Sunny', min: 19, max: 30 },
+            { date: '28-01-2025', day: 'Tue', condition: 'Rainy', min: 18, max: 29 },
+            { date: '29-01-2025', day: 'Wed', condition: 'Cloudy', min: 15, max: 22 },
+            { date: '30-01-2025', day: 'Thu', condition: 'Rainy', min: 13, max: 30 },
+            { date: '31-01-2025', day: 'Fri', condition: 'Rainy', min: 22, max: 32 },
+            { date: '01-02-2025', day: 'Sat', condition: 'Rainy', min: 13, max: 30 },
+            { date: '02-02-2025', day: 'Sun', condition: 'Sunny', min: 18, max: 36 },
+            { date: '03-02-2025', day: 'Mon', condition: 'Rainy', min: 19, max: 30 },
+            { date: '04-02-2025', day: 'Tue', condition: 'Cloudy', min: 18, max: 30 }
           ]
         },
         trafficStats: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-          data: [120, 150, 170, 200, 180]
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+          data: [120, 150, 170, 200, 180, 49, 230, 180, 160, 130, 90, 180]
         },
         vesselTypes: {
           labels: ['Cargo', 'Passenger', 'Fishing', 'Others'],

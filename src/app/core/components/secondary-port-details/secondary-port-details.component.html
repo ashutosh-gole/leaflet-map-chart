@@ -1,5 +1,5 @@
 <div class="secondary-port-details-dialog">
-    <mat-tab-group>
+    <mat-tab-group (selectedTabChange)="onTabChange($event)">
         <!-- Overview Tab -->
         <mat-tab label="Overview">
             <div class="overview-tab">
@@ -16,16 +16,14 @@
 
         <!-- Traffic Statistics Tab -->
         <mat-tab label="Traffic Statistics">
-            <div class="chart-container">
-                <h3>Traffic Statistics</h3>
+            <div class="traffic-chart-container">
                 <canvas id="trafficChart"></canvas>
             </div>
         </mat-tab>
 
         <!-- Vessel Details Tab -->
         <mat-tab label="Vessel Details">
-            <div class="chart-container">
-                <h3>Vessel Types</h3>
+            <div class="vessel-chart-container">
                 <canvas id="vesselChart"></canvas>
             </div>
         </mat-tab>
@@ -38,24 +36,27 @@
                     <div>{{ data.weather.temperature }}<sup>o</sup> | {{ data.weather.condition }}</div>
                 </div>
 
-                <h3>15-Day Weather Forecast</h3>
-                <ng-container *ngFor="let day of data.weather.forecast">
-                    <div class="forecast-day">
-                        <div class="day"><strong>{{ day.day }}</strong></div>
-                        <img [src]="'assets/weather/' + day.condition.toLowerCase() + '.png'" alt="Weather Icon" />
-                        <div class="condition"><i>{{ day.condition }}</i></div>
-                        <div class="temperature-range">
-                            <span class="min-temp">
-                                <mat-icon class="icon" aria-hidden="true">arrow_downward</mat-icon>
-                                {{ day.min }}°C
-                            </span>
-                            <span class="max-temp">
-                                <mat-icon class="icon" aria-hidden="true">arrow_upward</mat-icon>
-                                {{ day.max }}°C
-                            </span>
+                <div class="forecast-details">
+                    <h3 style="text-align: center;">15-Day Weather Forecast</h3>
+                    <ng-container *ngFor="let day of data.weather.forecast">
+                        <div class="forecast-day">
+                            <div class="day">{{ day.date }}</div>
+                            <div class="day"><strong>{{ day.day }}</strong></div>
+                            <img [src]="'assets/weather/' + day.condition.toLowerCase() + '.png'" alt="Weather Icon" />
+                            <div class="condition"><i>{{ day.condition }}</i></div>
+                            <div class="temperature-range">
+                                <span class="min-temp">
+                                    <mat-icon class="icon" aria-hidden="true">arrow_downward</mat-icon>
+                                    {{ day.min }}°C
+                                </span>
+                                <span class="max-temp">
+                                    <mat-icon class="icon" aria-hidden="true">arrow_upward</mat-icon>
+                                    {{ day.max }}°C
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                </ng-container>
+                    </ng-container>
+                </div>
             </div>
         </mat-tab>
     </mat-tab-group>
