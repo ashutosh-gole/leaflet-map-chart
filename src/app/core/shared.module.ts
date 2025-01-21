@@ -6,12 +6,14 @@ import { PortDetailsComponent } from './components/port-details/port-details.com
 import { PortMapComponent } from './components/port-map/port-map.component';
 import { MaterialModule } from './material/material.module';
 import { SecondaryPortDetailsComponent } from './components/secondary-port-details/secondary-port-details.component';
+import { WeatherDetailsComponent } from './components/weather-details/weather-details.component';
 
 @NgModule({
   declarations: [
     PortMapComponent,
     PortDetailsComponent,
-    SecondaryPortDetailsComponent
+    SecondaryPortDetailsComponent,
+    WeatherDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { SecondaryPortDetailsComponent } from './components/secondary-port-detai
     MaterialModule,
     PortMapComponent,
     PortDetailsComponent,
-    SecondaryPortDetailsComponent
+    SecondaryPortDetailsComponent,
+    WeatherDetailsComponent
   ]
 })
 export class SharedModule { }

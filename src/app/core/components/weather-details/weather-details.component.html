@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Weather Information</h1>
+<div mat-dialog-content>
+    <div *ngFor="let weather of data">
+        <h3>{{ weather.name }}</h3>
+        <p><b>Temperature:</b> {{ weather.temperature }} °C</p>
+        <p><b>Wind Speed:</b> {{ weather.windSpeed }} m/s</p>
+        <p><b>Rain:</b> {{ weather.rain }} mm</p>
+        <hr>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+</div>

@@ -2,10 +2,11 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as L from 'leaflet';
 import { debounceTime, Subject, switchMap } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { PORTS } from '../../constants/constants';
 import { MapService } from '../../services/map/map.service';
 import { PortDetailsComponent } from '../port-details/port-details.component';
-import { environment } from '../../../../environments/environment';
+import { WeatherDetailsComponent } from '../weather-details/weather-details.component';
 
 @Component({
   selector: 'app-port-map',
@@ -271,8 +272,9 @@ export class PortMapComponent implements OnInit, AfterViewInit {
     // Add markers for each point with the custom icon
     routeCoordinates.forEach((point) => {
       L.marker([point.lat, point.lng], { icon: this.routeIcon })
-        .bindPopup(`<b>${point.name}</b><br>Location: [${point.lat.toFixed(2)}, ${point.lng.toFixed(2)}]`)
-        .addTo(this.map!);
+        // .bindPopup(`<b>${point.name}</b><br>Location: [${point.lat.toFixed(2)}, ${point.lng.toFixed(2)}]`)
+        .addTo(this.map!)
+        .on('click', () => this.fetchWeatherForRoute(routeCoordinates))
     });
 
     // Adjust map bounds to fit the route
@@ -302,15 +304,15 @@ export class PortMapComponent implements OnInit, AfterViewInit {
     // Bind a popup to the polyline
     additionalRoute.bindPopup(`<b>Route Details:</b><br>Source: ${additionalRouteCoordinates[0].name}<br>Destination: ${additionalRouteCoordinates[additionalRouteCoordinates.length - 1].name}`);
 
+    additionalRoute.on('click', () => this.fetchWeatherForRoute(additionalRouteCoordinates));
+
     // Add markers for each point with the custom icon
     additionalRouteCoordinates.forEach((point) => {
       L.marker([point.lat, point.lng], { icon: this.routeIcon })
-        .bindPopup(
-          `<b>${point.name}</b><br>Location: [${point.lat.toFixed(
-            2
-          )}, ${point.lng.toFixed(2)}]`
-        )
-        .addTo(this.map!);
+        // .bindPopup(`<b>${point.name}</b><br>Location: [${point.lat.toFixed(2)}, ${point.lng.toFixed(2)}]`)
+        .addTo(this.map!)
+        .on('click', () => this.fetchWeatherForRoute(additionalRouteCoordinates))
+        ;
     });
 
     // Adjust map bounds to fit both routes
@@ -432,6 +434,52 @@ export class PortMapComponent implements OnInit, AfterViewInit {
       attribution: '© OpenWeatherMap',
       opacity: 1
     }).addTo(this.map!);
+  }
+
+  private fetchWeatherForRoute(routeCoordinates: any[]): void {
+    const weatherData: any[] = [];
+
+    const fetchWeatherData = (lat: number, lon: number) => {
+      const weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${environment.WEATHER_API}`;
+
+      return fetch(weatherApiUrl)
+        .then((response) => response.json())
+        .then((data) => ({
+          temperature: data.main.temp,
+          windSpeed: data.wind.speed,
+          rain: data.rain ? data.rain['1h'] : '0',
+        }))
+        .catch((error) => {
+          console.error('Error fetching weather data:', error);
+          return null;
+        });
+    };
+
+    Promise.all(routeCoordinates.map((point) => fetchWeatherData(point.lat, point.lng)))
+      .then((results) => {
+        results.forEach((data, index) => {
+          if (data) {
+            weatherData.push({
+              name: routeCoordinates[index].name,
+              ...data,
+            });
+          }
+        });
+
+        if (weatherData.length > 0) {
+          this.openWeatherDialog(weatherData);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching weather data for route:', error);
+      });
+  }
+
+  private openWeatherDialog(weatherData: any): void {
+    this.dialog.open(WeatherDetailsComponent, {
+      width: '400px',
+      data: weatherData,
+    });
   }
 
   // Optional: Clean up legend when component is destroyed
