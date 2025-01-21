@@ -12,21 +12,24 @@
 
 .top-container {
     display: flex;
-    align-items: center;
     justify-content: center;
-    /* Center horizontally */
     position: absolute;
     top: 10px;
-    /* Adjust vertical position */
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
     z-index: 1000;
-    /* Ensure it's above the map */
-    gap: 15px;
-    /* Space between elements */
+    padding: 10px;
+    // background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.top-container input {
+.map-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-input {
     width: 300px;
     /* Adjust width as needed */
     padding: 10px;
@@ -36,25 +39,15 @@
     border-radius: 12px;
 }
 
-.map-controls {
-    display: flex;
-    gap: 10px;
-    /* Space between buttons */
-}
+.weather-select {
+    min-width: 200px;
+    // height: 60px;
+  }
 
-.map-controls button {
-    padding: 10px 15px;
+button {
+    height: 40px;
     font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    border: 1px solid black;
-    border-radius: 12px;
-    background-color: #c0b6b6;
-    transition: background-color 0.3s ease;
-}
-
-.map-controls button:hover {
-    background-color: #e0e0e0;
+    text-transform: capitalize;
 }
 
 /* Legend Styles */

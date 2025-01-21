@@ -1,10 +1,11 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import * as L from 'leaflet';
+import { debounceTime, Subject, switchMap } from 'rxjs';
 import { PORTS } from '../../constants/constants';
 import { MapService } from '../../services/map/map.service';
-import { debounceTime, Subject, switchMap } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
 import { PortDetailsComponent } from '../port-details/port-details.component';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-port-map',
@@ -22,6 +23,8 @@ export class PortMapComponent implements OnInit, AfterViewInit {
   searchSubject: Subject<string> = new Subject();
   selectedPort: any;
   private savedView: { center: L.LatLng, zoom: number, layers: string[] } | null = null;
+  private weatherLayer: L.TileLayer | null = null;
+  selectedWeatherType: string = 'wind'; // Default weather layer
 
   private defaultIcon = L.icon({
     iconUrl: 'assets/leaflet/images/marker-icon.png',
@@ -396,6 +399,39 @@ export class PortMapComponent implements OnInit, AfterViewInit {
     // Replace this with your layer management logic
     // For example, you might have a layers registry
     return null;
+  }
+
+  toggleWeatherLayer(): void {
+    if (this.weatherLayer) {
+      this.map?.removeLayer(this.weatherLayer);
+      this.weatherLayer = null;
+    } else {
+      this.addWeatherLayer(this.selectedWeatherType);
+    }
+  }
+
+  onWeatherLayerChange(event: any): void {
+    if (this.weatherLayer) {
+      this.map?.removeLayer(this.weatherLayer);
+    }
+    this.addWeatherLayer(event.value);
+  }
+
+  private addWeatherLayer(type: string): void {
+    const layerUrls: { [key: string]: string } = {
+      wind: `https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=${environment.WEATHER_API}`,
+      rain: `https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${environment.WEATHER_API}`,
+      storm: `https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${environment.WEATHER_API}`,
+      clouds: `https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${environment.WEATHER_API}`,
+      temperature: `https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${environment.WEATHER_API}`,
+      pressure: `https://tile.openweathermap.org/map/pressure_new/{z}/{x}/{y}.png?appid=${environment.WEATHER_API}`
+    };
+
+    const layerUrl = layerUrls[type];
+    this.weatherLayer = L.tileLayer(layerUrl, {
+      attribution: '© OpenWeatherMap',
+      opacity: 1
+    }).addTo(this.map!);
   }
 
   // Optional: Clean up legend when component is destroyed

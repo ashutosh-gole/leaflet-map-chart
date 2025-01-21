@@ -1,9 +1,24 @@
 <div class="top-container">
-    <input type="text" (input)="onSearch($event)" placeholder="Search for a port">
-
     <div class="map-controls">
-        <button (click)="saveBookmark()">Save View</button>
-        <button (click)="loadBookmark()">Load View</button>
+        <input type="text" (input)="onSearch($event)" placeholder="Search for a port" class="search-input">
+
+        <button mat-raised-button color="primary" (click)="saveBookmark()">Save View</button>
+
+        <button mat-raised-button color="accent" (click)="loadBookmark()">Load View</button>
+
+        <button mat-raised-button color="warn" (click)="toggleWeatherLayer()">Toggle Weather Layer</button>
+
+        <mat-form-field appearance="fill" class="weather-select">
+            <mat-label>Weather Layer</mat-label>
+            <mat-select [(value)]="selectedWeatherType" (selectionChange)="onWeatherLayerChange($event)">
+                <mat-option value="wind">Wind Speed</mat-option>
+                <mat-option value="rain">Rain</mat-option>
+                <mat-option value="storm">Storm Forecast</mat-option>
+                <mat-option value="clouds">Clouds</mat-option>
+                <mat-option value="temperature">Temperature</mat-option>
+                <mat-option value="pressure">Pressure</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
 </div>
 <div id="map" style="width: 100vw; height: 100vh;"></div>
