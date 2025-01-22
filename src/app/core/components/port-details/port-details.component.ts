@@ -50,7 +50,7 @@ export class PortDetailsComponent {
     this.dialog.open(SecondaryPortDetailsComponent, {
       width: '50vw',
       height: '100vh',
-      position: { top: '0', right: '50%' },
+      position: { top: '0', right: '0' },
       panelClass: 'secondary-port-details-dialog',
       data: {
         name: this.data.name,
