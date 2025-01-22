@@ -143,6 +143,7 @@ export class PortMapComponent implements OnInit, AfterViewInit {
       marker.on('click', () => {
         this.dialog.open(PortDetailsComponent, {
           width: '30vw',
+          minWidth: '30vw',
           height: '100vh',
           position: { top: '0', right: '0' },
           panelClass: 'port-details-dialog',
