@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as L from 'leaflet';
+import 'leaflet.markercluster'; // Import the marker cluster plugin
 import { debounceTime, Subject, switchMap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { PORTS } from '../../constants/constants';
@@ -44,7 +45,9 @@ export class PortMapComponent implements OnInit, AfterViewInit {
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
     shadowSize: [41, 41],
     shadowAnchor: [12, 41],
-  })
+  });
+
+  private markerClusterGroup: L.MarkerClusterGroup | undefined;
 
   constructor(
     private mapService: MapService,
@@ -57,11 +60,11 @@ export class PortMapComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initMap();
-    this.loadGeoJson();
-    this.addPortMarkers(this.ports);
+    // this.loadGeoJson(); // Use for scale based color to the country
+    this.addClusteredPortMarkers(this.ports); // Use clustered markers
     this.addLegend(); // Add legend here
-    this.drawRoute(); // Draw the route
-    this.drawAdditionalRoute(); // Draw the new route
+    // this.drawRoute(); // Draw the route
+    // this.drawAdditionalRoute(); // Draw the new route
   }
 
   private initMap(): void {
@@ -74,6 +77,10 @@ export class PortMapComponent implements OnInit, AfterViewInit {
       maxZoom: 19,
       attribution: '© OpenStreetMap contributors'
     }).addTo(this.map!);
+
+    // Initialize the marker cluster group
+    this.markerClusterGroup = L.markerClusterGroup();
+    this.map.addLayer(this.markerClusterGroup);
   }
 
   private loadGeoJson(): void {
@@ -134,25 +141,6 @@ export class PortMapComponent implements OnInit, AfterViewInit {
           }
         }).addTo(this.map!);
       });
-  }
-
-  private addPortMarkers(ports: any[]): void {
-    ports.forEach((port) => {
-      const marker = L.marker([port.lat, port.lng], { icon: this.defaultIcon });
-
-      marker.on('click', () => {
-        this.dialog.open(PortDetailsComponent, {
-          width: '30vw',
-          minWidth: '30vw',
-          height: '100vh',
-          position: { top: '0', right: '0' },
-          panelClass: 'port-details-dialog',
-          data: port,
-        });
-      });
-
-      marker.addTo(this.map!);
-    });
   }
 
   private onAreaClick(feature: any, layer: L.Layer): void {
@@ -481,6 +469,38 @@ export class PortMapComponent implements OnInit, AfterViewInit {
       width: '400px',
       data: weatherData,
     });
+  }
+
+  private addClusteredPortMarkers(ports: any[]): void {
+    // Initialize the marker cluster group
+    this.markerClusterGroup = L.markerClusterGroup({
+      showCoverageOnHover: false,
+      spiderfyOnMaxZoom: true,
+      zoomToBoundsOnClick: true,
+      animate: true,
+    });
+
+    // Add markers to the cluster group
+    ports.forEach((port) => {
+      const marker = L.marker([port.lat, port.lng], { icon: this.defaultIcon });
+
+      // Add click handler for marker
+      marker.on('click', () => {
+        this.dialog.open(PortDetailsComponent, {
+          width: '30vw',
+          minWidth: '30vw',
+          height: '100vh',
+          position: { top: '0', right: '0' },
+          panelClass: 'port-details-dialog',
+          data: port,
+        });
+      });
+
+      this.markerClusterGroup?.addLayer(marker);
+    });
+
+    // Add the cluster group to the map
+    this.map?.addLayer(this.markerClusterGroup!);
   }
 
   // Optional: Clean up legend when component is destroyed
